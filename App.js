@@ -1,24 +1,28 @@
-
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList, Image } from 'react-native';
 import ListItem from './src/components/listItem/ListItem';
-import sampleData from './assets/data/sampleData';
+import { poke } from './assets/data/pokemons';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.headerWrapper}>
-        <Text style={styles.header}>Mercados</Text>
-        <View style={styles.divider} />
+      <View style={styles.header}>
+        <Image source={{ uri: 'https://th.bing.com/th/id/OIP._JfVh6iwSfVowk_jv-zZvAHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.5&pid=1.7' }} style={styles.image} />
+        <Text style={styles.headerText} >Shiny-Check Pokédex</Text>
       </View>
-
-      < ListItem 
-        name={'Bitcoin'}
-        symbol={'BTC'}
-        currentPrice={34000}
-        priceChangePercentage7d={4}
-        logoUrl={"https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/BSV.png"}
-      />
+      <View style={styles.divider} />
+      <FlatList
+        data={poke}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+          <ListItem
+            name={item.name}
+            img={item.img}
+            number={item.number}
+            type={item.type}
+          />
+        )} >
+      </FlatList>
     </SafeAreaView>
   );
 }
@@ -32,12 +36,26 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 36,
+    marginBottom: 16,
     marginHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
   divider: {
     height: 1,
-    backgroundColor: 'grey',
+    backgroundColor: 'lightgrey',
     marginHorizontal: 16,
-    marginTop: 16,
-  }
+    marginBottom: 16,
+  },
+  image: {
+    height: 48,
+    width: 48,
+    backgroundColor: 'black',
+  },
 });

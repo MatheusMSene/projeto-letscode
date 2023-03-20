@@ -1,24 +1,41 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
-const ListItem = ({ name, symbol, currentPrice, priceChangePercentage7d, logoUrl }) => {
+const ListItem = ({ name, img, number, type }) => {
 
-    const priceChangeColor = priceChangePercentage7d > 0 ? "green" : "red";
+    let changeTypeColor = '';
 
-    return (<>
-        <TouchableOpacity>
-            <View style={styles.itemWrapper}>
+    if(type === 'grass') changeTypeColor = '#33cc33'
+    else if(type === 'fire') changeTypeColor = '#ff5c33'
+    else if(type === 'water') changeTypeColor = '#4da6ff'
+    else if(type === 'bug') changeTypeColor = '#339933'
+    else if(type === 'flying') changeTypeColor = '#80bfff'
+    else if(type === 'normal') changeTypeColor = '#808080'
+    else if(type === 'poison') changeTypeColor = '#A020F0'
+    else if(type === 'electric') changeTypeColor = '#FFD700'
+
+    const [sprite, setSprite] = useState(0);
+    const [changeBackGround, setChangeBackGround] = useState("#ddd");
+
+    return (
+    <>
+        <TouchableOpacity onPress={() => {
+            if(sprite === 0) setSprite(1)
+            else if(sprite === 1) setSprite(0); 
+            if(changeBackGround === "#ddd") setChangeBackGround("#eee")
+            else if(changeBackGround === "#eee") setChangeBackGround("#ddd"); 
+        }} >
+            <View style={[styles.itemWrapper, { backgroundColor: changeBackGround }]}>
                 <View style={styles.leftWrapper}>
-                    <Image source={{ uri: logoUrl }} style={styles.image} />
+                    <Image source={{ uri: img[parseInt(sprite)] }} style={styles.image} resizeMode='cover' />
                     <View style={styles.titlesWrapper}>
+                        <Text style={styles.title}> {number} </Text>
                         <Text style={styles.title}> {name} </Text>
-                        <Text style={styles.subtitle}> {symbol} </Text>
                     </View>
                 </View>
 
                 <View style={styles.rightWrapper}>
-                    <Text style={styles.title}> ${currentPrice} </Text>
-                    <Text style={[styles.subtitle, { color: priceChangeColor }]}> {priceChangePercentage7d}% </Text>
+                    <Text style={[styles.title, { color: changeTypeColor, fontWeight: 'bold' }]}> {type} </Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -29,10 +46,13 @@ const ListItem = ({ name, symbol, currentPrice, priceChangePercentage7d, logoUrl
 const styles = StyleSheet.create({
     itemWrapper: {
         paddingHorizontal: 16,
-        marginTop: 24,
+        marginTop: 8,
+        marginHorizontal: 14,
+        borderRadius: 4,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#eee',
     },
     leftWrapper: {
         flexDirection: 'row',
@@ -42,14 +62,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     image: {
-        height: 48,
-        width: 48,
+        height: 88,
+        width: 88,
     },
     titlesWrapper: {
         marginLeft: 8,
+        flexDirection: 'row',
     },
     title: {
         fontSize: 18,
+        color: 'black',
     },
     subtitle: {
         fontSize: 14,
