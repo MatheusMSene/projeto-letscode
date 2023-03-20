@@ -181,4 +181,11 @@ export const poke = [
               "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/26.png"],
         type: "electric",
     },
+    {
+        number: "027",
+        name: "Sandsrhew",
+        img: ["https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png",
+              "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/27.png"],
+        type: "ground",
+    },
 ]

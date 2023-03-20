@@ -13,6 +13,7 @@ const ListItem = ({ name, img, number, type }) => {
     else if(type === 'normal') changeTypeColor = '#808080'
     else if(type === 'poison') changeTypeColor = '#A020F0'
     else if(type === 'electric') changeTypeColor = '#FFD700'
+    else if(type === 'ground') changeTypeColor = '#996655'
 
     const [sprite, setSprite] = useState(0);
     const [changeBackGround, setChangeBackGround] = useState("#ddd");
